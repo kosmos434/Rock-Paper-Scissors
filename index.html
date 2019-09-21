@@ -22,15 +22,17 @@
 </head>
  
 <body>
-  <div style="text-align: center;">
-    <p>Rock Paper Scissors 2</p>
-    <img src="scissors.png" alt="no one reads alt text">
+  <div>
+    <p>Rock Paper Scissors</p>
+    <img src="scissors.png" alt="scissors!">
   </div>
-  <div style="text-align: center;">
-    <button id="rock">rock</button>
-    <button id="paper">paper</button>
-    <button id="scissors">scissors</button>
+  <div>
+    <button onclick="singleRound('Rock')">rock</button>
+    <button onclick="singleRound('Paper')">paper</button>
+    <button onclick="singleRound('Scissors')">scissors</button>
+    <button onclick="window.location.reload()">restart</button>
   </div>
+
   <script src="script.js"></script>  
 </body>
 

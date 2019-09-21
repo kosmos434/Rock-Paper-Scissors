@@ -1,65 +1,55 @@
 let possibleChoices = ["Rock", "Paper", "Scissors"];
 let playerScore = 0;
 let computerScore = 0;
+const scoreBlurb = document.createElement('div');
+const scoreTally = document.createElement('div');
+document.body.appendChild(scoreBlurb);
+document.body.appendChild(scoreTally);
 
 function computerPlay() {
   return possibleChoices[Math.floor(Math.random() * 3)]
 }
 
-function roundOne(playerSelection, computerSelection) {
-  if ((playerSelection.toLowerCase() == "rock") && (computerSelection == "Rock")) {
-    // "Draw!"
+function singleRound(playerChoice) {
+  let computerChoice = computerPlay();
+  if (playerChoice === computerChoice) {
+    draw();
   }
-  else if ((playerSelection.toLowerCase() == "rock") && (computerSelection == "Paper")) {
-    // "Lose!"
-    computerScore += 1;
-  }
-  else if ((playerSelection.toLowerCase() == "rock") && (computerSelection == "Scissors")) {
-    // "Win!"
+  else if (playerChoice === 'Rock' && computerChoice === 'Scissors'|| playerChoice === 'Paper' && computerChoice === 'Rock' || playerChoice === 'Scissors' && computerChoice === 'Paper') {
     playerScore += 1;
+    point();
   }
-  else if ((playerSelection.toLowerCase() == "paper") && (computerSelection == "Rock")) {
-    // "Win!"
-    playerScore += 1;
-  }
-  else if ((playerSelection.toLowerCase() == "paper") && (computerSelection == "Paper")) {
-    // "Draw!"
-  }
-  else if ((playerSelection.toLowerCase() == "paper") && (computerSelection == "Scissors")) {
-    // "Lose!"
+  else if (playerChoice === 'Rock' && computerChoice === 'Paper'|| playerChoice === 'Paper' && computerChoice === 'Scissors' || playerChoice === 'Scissors' && computerChoice === 'Rock') {
     computerScore += 1;
-  }
-  else if ((playerSelection.toLowerCase() == "scissors") && (computerSelection == "Rock")) {
-    // "Lose!"
-    computerScore += 1;
-  }
-  else if ((playerSelection.toLowerCase() == "scissors") && (computerSelection == "Paper")) {
-    // "Win!"
-    playerScore += 1;
-  }
-  else if ((playerSelection.toLowerCase() == "scissors") && (computerSelection == "Scissors")) {
-    // "Draw!"
-  }
-  else {
-    return "I AM ERROR."
+    loss();
   }
 }
 
-function game() {
-    const rockBtn = document.getElementById("rock");
-    const paperBtn = document.getElementById("paper");
-    const scissorsBtn = document.getElementById("scissors");
-    rockBtn.addEventListener("click", roundOne("rock", computerPlay()));
-    paperBtn.addEventListener("click", roundOne("paper", computerPlay()));
-    scissorsBtn.addEventListener("click", roundOne("scissors", computerPlay()));
+
+function point() {
+  if (computerScore < 5 && playerScore < 5) {
+    scoreBlurb.innerText = ("You won this round!")
+    scoreTally.innerText = (`The current score is Human: ${playerScore} to Computer: ${computerScore}`)
   }
-  if (playerScore > computerScore) {
-    alert("You win with a score of: " + playerScore);
+  else if (playerScore == 5 && computerScore < 5) {
+    scoreBlurb.innerText = ("YOU WIN!")
+    scoreTally.innerText = (`The current score is Human: 👑${playerScore} to Computer: ${computerScore}`)
   }
-  else if (playerScore < computerScore) {
-    alert("You LOSE with a score of: " + playerScore + " vs the computer's " + computerScore);
   }
-  else {
-    alert("It's a draw! Wow!")
+
+
+function loss() {
+  if (computerScore < 5 && playerScore < 5) {
+    scoreBlurb.innerText = ("You lost this round!")
+    scoreTally.innerText = (`The current score is Human: ${playerScore} to Computer: ${computerScore}`)
   }
-// game()
+  else if (computerScore === 5 && playerScore < 5) {
+    scoreBlurb.innerText = ("YOU LOSE")
+    scoreTally.innerText = (`The current score is Human: ${playerScore} to Computer: 👑${computerScore}`)
+  }
+}
+
+function draw() {
+  scoreBlurb.innerText = ("Draw!")
+  scoreTally.innerText = (`The current score is Human: ${playerScore} to Computer: ${computerScore}`)
+}
